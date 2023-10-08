@@ -128,109 +128,111 @@ function Register() {
     };
     return (
         <div className={cx('wrap')}>
-            <Link to="/">
-                <div className={cx('logo')}>
-                    <img src={Logo} alt="" />
-                </div>
-            </Link>
-            <div className={cx('box')}>
-                <div className={cx('header')}>
-                    <h1 className="text-center text-4xl">Đăng ký</h1>
-                </div>
-                <div className="flex justify-around">
-                    <div className={cx('group')}>
-                        <div className={cx('item')}>
-                            <input
-                                ref={userNameRef}
-                                value={userName}
-                                onChange={(e) => setUsername(e.target.value)}
-                                type="text"
-                                placeholder="Nhập tên đăng nhập"
-                                onKeyDown={(e) => e.key === 'Enter' && submitRegister()}
-                            />
-                            <span ref={loguserName} className={cx('item-log')} style={{ display: 'none' }}>
-                                Vui lòng nhập tên đăng nhập
-                            </span>
-                        </div>
-                        <div className={cx('item')}>
-                            <input
-                                ref={emailRef}
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                type="email"
-                                onKeyDown={(e) => e.key === 'Enter' && submitRegister()}
-                                placeholder="Nhập tài khoảng email"
-                            />
-                            <span ref={logEmail} className={cx('item-log')} style={{ display: 'none' }}>
-                                Vui lòng nhập tài khoảng email
-                            </span>
-                        </div>
-                        <div className={cx('item', 'password')}>
-                            <input
-                                className={cx('input-password')}
-                                ref={passwordRef}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                type={isPassword ? 'text' : 'password'}
-                                onKeyDown={(e) => e.key === 'Enter' && submitRegister()}
-                                placeholder="Nhập mật khẩu"
-                            />
-                            <div className={cx('icon')}>
-                                {isPassword ? (
-                                    <EyeOutlined onClick={() => setIsPw(false)} />
-                                ) : (
-                                    <EyeInvisibleOutlined onClick={() => setIsPw(true)} />
-                                )}
+            <div className="container mx-auto">
+                <Link to="/">
+                    <div className={cx('logo')}>
+                        <img src={Logo} alt="" />
+                    </div>
+                </Link>
+                <div className={cx('box')}>
+                    <div className={cx('header')}>
+                        <h1 className="text-center text-4xl">Đăng ký</h1>
+                    </div>
+                    <div className="flex justify-around">
+                        <div className={cx('group')}>
+                            <div className={cx('item')}>
+                                <input
+                                    ref={userNameRef}
+                                    value={userName}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    type="text"
+                                    placeholder="Nhập tên đăng nhập"
+                                    onKeyDown={(e) => e.key === 'Enter' && submitRegister()}
+                                />
+                                <span ref={loguserName} className={cx('item-log')} style={{ display: 'none' }}>
+                                    Vui lòng nhập tên đăng nhập
+                                </span>
                             </div>
-                            <span ref={logPassword} className={cx('item-log')} style={{ display: 'none' }}>
-                                Vui lòng nhập mật khẩu của bạn
-                            </span>
-                        </div>
-                        <div className={cx('item', 'password')}>
-                            <input
-                                className={cx('input-password')}
-                                ref={confirmPWRef}
-                                value={confirmPW}
-                                onChange={(e) => setConfirmPW(e.target.value)}
-                                type={isConfirmPw ? 'text' : 'password'}
-                                onKeyDown={(e) => e.key === 'Enter' && submitRegister()}
-                                placeholder="Nhập lại mật khẩu"
-                            />
-                            <div className={cx('icon')}>
-                                {isConfirmPw ? (
-                                    <EyeOutlined onClick={() => setIsConfirmPw(false)} />
-                                ) : (
-                                    <EyeInvisibleOutlined onClick={() => setIsConfirmPw(true)} />
-                                )}
+                            <div className={cx('item')}>
+                                <input
+                                    ref={emailRef}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    type="email"
+                                    onKeyDown={(e) => e.key === 'Enter' && submitRegister()}
+                                    placeholder="Nhập tài khoảng email"
+                                />
+                                <span ref={logEmail} className={cx('item-log')} style={{ display: 'none' }}>
+                                    Vui lòng nhập tài khoảng email
+                                </span>
                             </div>
-                            <span ref={logConfirmPw} className={cx('item-log')} style={{ display: 'none' }}>
-                                Vui lòng nhập lại mật khẩu
-                            </span>
-                        </div>
-                        <div className={cx('item')}>
-                            <Checkbox ref={checkBoxRef} checked={checkbox} onClick={() => setCheckBox(!checkbox)}>
-                                <p>
-                                    Đồng ý <a href="/123">điều khoảng dịch vụ</a> của chúng tôi
-                                </p>
-                            </Checkbox>
-                        </div>
-                        <div className={cx('item')}>
-                            <button className={cx('btn')} onClick={() => submitRegister()}>
-                                <h3>Đăng ký</h3>
-                            </button>
-                        </div>
-                        <div className={cx('register') + ' mt-5'}>
-                            <h4>
-                                Bạn đã có tài khoảng?
-                                <Link to="/login">
-                                    <span className="ml-3"> Đăng nhập</span>
-                                </Link>
-                            </h4>
+                            <div className={cx('item', 'password')}>
+                                <input
+                                    className={cx('input-password')}
+                                    ref={passwordRef}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    type={isPassword ? 'text' : 'password'}
+                                    onKeyDown={(e) => e.key === 'Enter' && submitRegister()}
+                                    placeholder="Nhập mật khẩu"
+                                />
+                                <div className={cx('icon')}>
+                                    {isPassword ? (
+                                        <EyeOutlined onClick={() => setIsPw(false)} />
+                                    ) : (
+                                        <EyeInvisibleOutlined onClick={() => setIsPw(true)} />
+                                    )}
+                                </div>
+                                <span ref={logPassword} className={cx('item-log')} style={{ display: 'none' }}>
+                                    Vui lòng nhập mật khẩu của bạn
+                                </span>
+                            </div>
+                            <div className={cx('item', 'password')}>
+                                <input
+                                    className={cx('input-password')}
+                                    ref={confirmPWRef}
+                                    value={confirmPW}
+                                    onChange={(e) => setConfirmPW(e.target.value)}
+                                    type={isConfirmPw ? 'text' : 'password'}
+                                    onKeyDown={(e) => e.key === 'Enter' && submitRegister()}
+                                    placeholder="Nhập lại mật khẩu"
+                                />
+                                <div className={cx('icon')}>
+                                    {isConfirmPw ? (
+                                        <EyeOutlined onClick={() => setIsConfirmPw(false)} />
+                                    ) : (
+                                        <EyeInvisibleOutlined onClick={() => setIsConfirmPw(true)} />
+                                    )}
+                                </div>
+                                <span ref={logConfirmPw} className={cx('item-log')} style={{ display: 'none' }}>
+                                    Vui lòng nhập lại mật khẩu
+                                </span>
+                            </div>
+                            <div className={cx('item')}>
+                                <Checkbox ref={checkBoxRef} checked={checkbox} onClick={() => setCheckBox(!checkbox)}>
+                                    <p>
+                                        Đồng ý <a href="/123">điều khoảng dịch vụ</a> của chúng tôi
+                                    </p>
+                                </Checkbox>
+                            </div>
+                            <div className={cx('item')}>
+                                <button className={cx('btn')} onClick={() => submitRegister()}>
+                                    <h3>Đăng ký</h3>
+                                </button>
+                            </div>
+                            <div className={cx('register') + ' mt-5'}>
+                                <h4>
+                                    Bạn đã có tài khoảng?
+                                    <Link to="/login">
+                                        <span className="ml-3"> Đăng nhập</span>
+                                    </Link>
+                                </h4>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {isLoader && <Loading />}
             </div>
-            {isLoader && <Loading />}
         </div>
     );
 }

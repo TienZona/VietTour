@@ -121,76 +121,78 @@ function Login() {
     };
 
     return (
-        <div className={cx('wrap') + ' container mx-auto'}>
-            <Link to="/">
-                <div className={cx('logo')}>
-                    <img src={Logo} alt="" />
-                </div>
-            </Link>
-            <div className={cx('box')}>
-                <div className={cx('header')}>
-                    <h1 className="text-center text-4xl">Đăng nhập</h1>
-                </div>
-                <div className={cx('group')}>
-                    <div className={cx('item')}>
-                        <input
-                            ref={usernameRef}
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            type="text"
-                            placeholder="Tên đăng nhập"
-                            onKeyDown={(e) => e.key === 'Enter'}
-                        />
-                        <span ref={logUsernameReg} className={cx('item-log')} style={{ display: 'none' }}>
-                            Vui lòng nhập tên đăng nhập !
-                        </span>
+        <div className={cx('wrap')}>
+            <div className="container mx-auto">
+                <Link to="/">
+                    <div className={cx('logo')}>
+                        <img src={Logo} alt="" />
                     </div>
-                    <div className={cx('item', 'password')}>
-                        <input
-                            ref={passwordRef}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            type={isPassword ? 'text' : 'password'}
-                            placeholder="Mật khẩu"
-                            onKeyDown={(e) => e.key === 'Enter'}
-                        />
-                        <div className={cx('icon')}>
-                            {isPassword ? (
-                                <EyeOutlined onClick={() => setIsPw(false)} />
-                            ) : (
-                                <EyeInvisibleOutlined onClick={() => setIsPw(true)} />
-                            )}
+                </Link>
+                <div className={cx('box')}>
+                    <div className={cx('header')}>
+                        <h1 className="text-center text-4xl">Đăng nhập</h1>
+                    </div>
+                    <div className={cx('group')}>
+                        <div className={cx('item')}>
+                            <input
+                                ref={usernameRef}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                type="text"
+                                placeholder="Tên đăng nhập"
+                                onKeyDown={(e) => e.key === 'Enter'}
+                            />
+                            <span ref={logUsernameReg} className={cx('item-log')} style={{ display: 'none' }}>
+                                Vui lòng nhập tên đăng nhập !
+                            </span>
                         </div>
-                        <span ref={logPassowrdReg} className={cx('item-log')} style={{ display: 'none' }}>
-                            Vui lòng nhập mật khẩu
-                        </span>
-                    </div>
-                    <div className={cx('item')}>
-                        <Link to={'/forgot'}>
-                            <span className={cx('recovery')}>Quên mật khẩu</span>
-                        </Link>
-                    </div>
-                    <div className={cx('item')}>
-                        <button className={cx('btn')} onClick={() => submitLogin()}>
-                            <h3>Đăng nhập</h3>
-                        </button>
-                    </div>
-                    <div className={cx('ruler-bar')}>
-                        <div className={cx('ruler', 'left')}></div>
-                        <span>Hoặc</span>
-                        <div className={cx('ruler', 'right')}></div>
-                    </div>
-                    <div className={cx('register')}>
-                        <h4>
-                            Bạn chưa có tài khoảng?
-                            <Link to="/register">
-                                <span className="ml-3"> Đăng ký</span>
+                        <div className={cx('item', 'password')}>
+                            <input
+                                ref={passwordRef}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                type={isPassword ? 'text' : 'password'}
+                                placeholder="Mật khẩu"
+                                onKeyDown={(e) => e.key === 'Enter'}
+                            />
+                            <div className={cx('icon')}>
+                                {isPassword ? (
+                                    <EyeOutlined onClick={() => setIsPw(false)} />
+                                ) : (
+                                    <EyeInvisibleOutlined onClick={() => setIsPw(true)} />
+                                )}
+                            </div>
+                            <span ref={logPassowrdReg} className={cx('item-log')} style={{ display: 'none' }}>
+                                Vui lòng nhập mật khẩu
+                            </span>
+                        </div>
+                        <div className={cx('item')}>
+                            <Link to={'/forgot'}>
+                                <span className={cx('recovery')}>Quên mật khẩu</span>
                             </Link>
-                        </h4>
+                        </div>
+                        <div className={cx('item')}>
+                            <button className={cx('btn')} onClick={() => submitLogin()}>
+                                <h3>Đăng nhập</h3>
+                            </button>
+                        </div>
+                        <div className={cx('ruler-bar')}>
+                            <div className={cx('ruler', 'left')}></div>
+                            <span>Hoặc</span>
+                            <div className={cx('ruler', 'right')}></div>
+                        </div>
+                        <div className={cx('register')}>
+                            <h4>
+                                Bạn chưa có tài khoảng?
+                                <Link to="/register">
+                                    <span className="ml-3"> Đăng ký</span>
+                                </Link>
+                            </h4>
+                        </div>
                     </div>
                 </div>
+                {isLoader && <Loading />}
             </div>
-            {isLoader && <Loading />}
         </div>
     );
 }
