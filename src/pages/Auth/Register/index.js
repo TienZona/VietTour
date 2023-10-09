@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
 import styles from './Register.module.scss';
 
-import { useState, useRef, useEffect } from 'react';
-import { Link, json } from 'react-router-dom';
+import { useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { Checkbox, message } from 'antd';
-import axios, { formToJSON } from 'axios';
+import axios from 'axios';
 import Loading from '~/components/Global/Loading';
 import Logo from '~/assets/background/logo.png';
 
@@ -14,6 +14,7 @@ const cx = classNames.bind(styles);
 function Register() {
     const [messageApi, contextHolder] = message.useMessage();
     // hook state
+    const navigate = useNavigate();
     const [isLoader, setIsLoader] = useState(false);
     const [isPassword, setIsPw] = useState(false);
     const [isConfirmPw, setIsConfirmPw] = useState(false);
@@ -102,26 +103,28 @@ function Register() {
             username: userName,
             email: email,
             password: password,
-            confirmPassword: confirmPW,
+            repassword: confirmPW,
         };
         axios
-            .post('https://localhost:44352/api/Auth/register', JSON.stringify(formData), {
+            .post('http://localhost:3001/auth/register', JSON.stringify(formData), {
                 headers: {
                     'content-type': 'application/json',
                 },
             })
             .then((res) => {
-                if (res.status === 200) {
-                    message.success('Successful Registration');
+                if (res.status === 201) {
+                    message.success('Đăng ký thành công!');
+
+                    setTimeout(() => {
+                        navigate('/login');
+                    }, 1000);
+
                     setIsLoader(false);
                 }
             })
             .catch((err) => {
                 if (err.response.status === 400) {
-                    err.response.data.errors.forEach((err) => {
-                        message.error(err);
-                    });
-                    console.log(err);
+                    message.error(err.response.data.errors[0].msg);
                     setIsLoader(false);
                 }
             });

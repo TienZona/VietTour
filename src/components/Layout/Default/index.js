@@ -3,15 +3,14 @@ import classNames from 'classnames/bind';
 
 import Header from '../Header';
 import Footer from '../Footer';
-import Home from '~/pages/Home';
 
 const cx = classNames.bind(styles);
 
-function Default({ Children }) {
+function Default({ children }) {
     return (
         <div className={cx('wrap')}>
             <Header />
-            <Home />
+            {children}
             <Footer />
         </div>
     );

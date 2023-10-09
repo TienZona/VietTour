@@ -4,11 +4,14 @@ import classNames from 'classnames/bind';
 import Slider from '~/components/Global/Slider';
 import SliderSlick from 'react-slick';
 import SliderItem from '~/components/Global/SliderItem';
+import { message } from 'antd';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Card from '~/components/Tour/Card';
 import CardSuggest from '~/components/Tour/CardSuggest';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
@@ -22,8 +25,27 @@ const settings = {
 };
 
 function Home() {
+    const [tours, setTour] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:3001/tours`, {
+                headers: {
+                    'content-type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    setTour(res.data.data);
+                }
+            })
+            .catch((err) => {
+                message.error(err.response.data.message);
+            });
+    }, []);
     return (
-        <div className={(cx('wrap'), ' container mx-auto')}>
+        <div className={(cx('wrap'), ' container mx-auto')} style={{ paddingTop: '80px' }}>
             <div className={cx('content') + ' flex justify-center'}>
                 <div style={{ width: '1000px', marginTop: '20px' }}>
                     <div className={cx('box')}>
@@ -52,11 +74,9 @@ function Home() {
                 </div>
                 <div>
                     <SliderSlick {...settings} slidesToShow={3}>
-                        <CardSuggest img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNv2kNsC4uO_3CH4HA0FPgAS4gDXa3jLYpEA&usqp=CAU" />
-                        <CardSuggest img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNv2kNsC4uO_3CH4HA0FPgAS4gDXa3jLYpEA&usqp=CAU" />
-                        <CardSuggest img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNv2kNsC4uO_3CH4HA0FPgAS4gDXa3jLYpEA&usqp=CAU" />
-                        <CardSuggest img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNv2kNsC4uO_3CH4HA0FPgAS4gDXa3jLYpEA&usqp=CAU" />
-                        <CardSuggest img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNv2kNsC4uO_3CH4HA0FPgAS4gDXa3jLYpEA&usqp=CAU" />
+                        {tours.map((tour, index) => (
+                            <CardSuggest key={index} tour={tour} />
+                        ))}
                     </SliderSlick>
                 </div>
             </div>

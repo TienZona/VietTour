@@ -1,16 +1,14 @@
 import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import { Link, json } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUser } from '~/redux/actions/auth';
 import Loading from '~/components/Global/Loading';
 import Logo from '~/assets/background/logo.png';
 
@@ -19,7 +17,7 @@ const cx = classNames.bind(styles);
 function Login() {
     const navigate = useNavigate();
 
-    const [cookies, setCookie] = useCookies(['access_token']);
+    const [cookies, setCookie] = useCookies(['access_token', 'username']);
     const [isLoader, setIsLoader] = useState(false);
     const [isPassword, setIsPw] = useState(false);
     const [username, setUsername] = useState('');
@@ -74,7 +72,7 @@ function Login() {
         };
         setIsLoader(true);
         axios
-            .post(`https://localhost:44352/api/Auth/login`, JSON.stringify(formData), {
+            .post(`http://localhost:3001/auth/login`, JSON.stringify(formData), {
                 headers: {
                     'content-type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
@@ -82,12 +80,18 @@ function Login() {
             })
             .then((res) => {
                 if (res.status === 200) {
-                    message.success('Successful Login');
-                    let expires = new Date();
-                    expires.setTime(expires.getTime() + res.data.expireDate * 1000);
-                    setCookie('access_token', res.data.token, { path: '/', expires });
-                    getProfile(res.data.token);
                     setIsLoader(false);
+                    message.success('Đăng nhập thành công');
+
+                    let expires = new Date();
+                    expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000);
+
+                    setCookie('access_token', res.data.token, { path: '/', expires });
+                    setCookie('username', res.data.data.name, { path: '/', expires });
+
+                    setTimeout(() => {
+                        navigate('/home');
+                    }, 1000);
                 }
             })
             .catch((err) => {
