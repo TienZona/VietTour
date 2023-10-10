@@ -110,7 +110,7 @@ function Detail() {
                                         <Select
                                             showSearch
                                             style={{
-                                                width: 200,
+                                                width: '100%',
                                             }}
                                             placeholder="Search to Select"
                                             optionFilterProp="children"
