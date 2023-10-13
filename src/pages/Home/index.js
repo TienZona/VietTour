@@ -133,7 +133,7 @@ function Home() {
             });
     }, []);
     return (
-        <div className={(cx('wrap'), ' container mx-auto')} style={{ paddingTop: '80px' }}>
+        <div className={cx('wrap')}>
             <div className={cx('content') + ' flex justify-center'}>
                 <div style={{ width: '1000px', marginTop: '20px' }}>
                     <div className={cx('box')}>

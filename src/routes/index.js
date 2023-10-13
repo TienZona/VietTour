@@ -4,6 +4,7 @@ import Contact from '../pages/Contact';
 import Login from '~/pages/Auth/Login';
 import Register from '~/pages/Auth/Register';
 import Detail from '~/pages/Detail';
+import Profile from '~/pages/Profile';
 
 // layout components
 import DefaultLayout from '~/components/Layout/Default';
@@ -33,6 +34,11 @@ const publicRoutes = [
         path: '/register',
         component: Register,
         layout: null,
+    },
+    {
+        path: '/profile',
+        component: Profile,
+        layout: DefaultLayout,
     },
     {
         path: '/detail/:id',

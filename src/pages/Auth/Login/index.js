@@ -85,13 +85,12 @@ function Login() {
 
                     let expires = new Date();
                     expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000);
-
                     setCookie('access_token', res.data.token, { path: '/', expires });
                     setCookie('username', res.data.data.name, { path: '/', expires });
+                    setCookie('user_id', res.data.data.id, { path: '/', expires });
+                    setCookie('name', res.data.data.name, { path: '/', expires });
 
-                    setTimeout(() => {
-                        navigate('/home');
-                    }, 1000);
+                    navigate('/home');
                 }
             })
             .catch((err) => {
@@ -117,6 +116,7 @@ function Login() {
                     email: res.data.email,
                     avatarUrl: res.data.avatarUrl,
                 };
+                console.log(res);
                 const data = JSON.stringify(user);
                 setCookie('user', data, { path: '/', expires });
                 navigate('/home');

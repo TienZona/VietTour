@@ -10,7 +10,9 @@ function Default({ children }) {
     return (
         <div className={cx('wrap')}>
             <Header />
-            {children}
+            <div className="container mx-auto" style={{ paddingTop: '80px' }}>
+                {children}
+            </div>
             <Footer />
         </div>
     );

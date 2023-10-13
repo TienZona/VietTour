@@ -28,7 +28,7 @@ const items = [
 ];
 
 function Header() {
-    const [cookies] = useCookies(['access_token', 'username']);
+    const [cookies] = useCookies(['access_token', 'name']);
 
     const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ function Header() {
         items[1].label = <span onClick={() => logout()}>Đăng xuất</span>;
         items[1].danger = true;
         items[0].label = (
-            <Link to="/register">
+            <Link to="/profile">
                 <span>Profile</span>
             </Link>
         );
@@ -54,11 +54,16 @@ function Header() {
         );
     }
 
-    console.log(cookies.access_token, '123');
-
     const logout = () => {
         // eslint-disable-next-line no-useless-concat
         document.cookie = 'access_token' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        // eslint-disable-next-line no-useless-concat
+        document.cookie = 'username' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        // eslint-disable-next-line no-useless-concat
+        document.cookie = 'user_id' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        // eslint-disable-next-line no-useless-concat
+        document.cookie = 'name' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
         navigate('/login');
     };
 
@@ -79,7 +84,7 @@ function Header() {
                         }}
                     >
                         <div className={cx('item')}>
-                            <span>User</span>
+                            <span>{cookies.name !== 'undefined' ? cookies.name : 'User'}</span>
                             <UserOutlined className={cx('icon')} />
                         </div>
                     </Dropdown>

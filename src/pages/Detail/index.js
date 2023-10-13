@@ -10,6 +10,12 @@ import { useParams } from 'react-router-dom';
 import iconCoin from '~/assets/icon/coins.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBurger, faCar, faQuestionCircle, faShieldHeart, faStore, faTicket } from '@fortawesome/free-solid-svg-icons';
+import { Timeline } from 'antd';
+import TimeLineItem from '~/components/Tour/TimelineItem';
+import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
+import CarIcon from '~/assets/icon/car.png';
+import TimeLineIcon from '~/components/Tour/TimelineIcon';
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +31,7 @@ function Detail() {
     const [tour, setTour] = useState('');
     const [calender, setCalender] = useState([]);
     const [indexDate, setIndexDate] = useState(0);
+    const [scheduleTour, setScheduleTour] = useState([]);
     let { id } = useParams();
 
     useEffect(() => {
@@ -40,6 +47,7 @@ function Detail() {
 
     useEffect(() => {
         if (tour) {
+            // get api calendar tour
             axios(`http://localhost:3001/calendartour/byTour/${tour._id}`)
                 .then((res) => {
                     if (res.status === 200) {
@@ -49,11 +57,22 @@ function Detail() {
                 .catch((err) => {
                     console.log(err);
                 });
+
+            // get api schedule tour
+            axios(`http://localhost:3001/scheduletours/tour/${tour._id}`)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setScheduleTour(res.data.data);
+                        console.log(scheduleTour);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     }, [tour]);
-
     return (
-        <div className={cx('wrap') + ' container mx-auto'} style={{ paddingTop: '80px' }}>
+        <div className={cx('wrap')}>
             {tour && (
                 <div className="grid grid-cols-3 gap-8">
                     <div className="col-span-2">
@@ -75,6 +94,54 @@ function Detail() {
                                     <h2 className="font-mono text-3xl font-semibold text-yellow-600 text-end my-2 px-6">
                                         {tour.type_tour_id.name}
                                     </h2>
+                                </div>
+                            </div>
+                            <div className="flex justify-center">
+                                <div className={cx('line-1')}></div>
+                            </div>
+                            <div>
+                                <h1 className="text-center p-3 font-mono text-4xl font-semibold text-zinc-950 my-2">
+                                    Lịch trình
+                                </h1>
+
+                                <div className={cx('timeline')}>
+                                    {scheduleTour.length ? (
+                                        <VerticalTimeline>
+                                            {scheduleTour.map((item, index) => (
+                                                <VerticalTimelineElement
+                                                    key={index}
+                                                    className="vertical-timeline-element--work"
+                                                    contentStyle={{ background: '#fff', color: '#000' }}
+                                                    contentArrowStyle={{ borderRight: '7px solid  #fff' }}
+                                                    date={
+                                                        <h3 className="text-center font-mono text-4xl font-semibold text-zinc-950">
+                                                            Ngày {item.day}
+                                                        </h3>
+                                                    }
+                                                    iconStyle={{ background: '#bac1b4', color: '#fff' }}
+                                                    icon={<TimeLineIcon />}
+                                                >
+                                                    <h3 className="vertical-timeline-element-title font-semibold text-zinc-950 font-mono text-3xl">
+                                                        {item.name}
+                                                    </h3>
+                                                    <h4 className="text-end text-amber-600 vertical-timeline-element-subtitle font-mono text-2xl">
+                                                        {item.content}
+                                                    </h4>
+
+                                                    <p className="text-end text-zinc-950 font-mono text-2xl">
+                                                        Phương tiện -{' '}
+                                                        {item.vehicles_id.map((vehicle, index) => (
+                                                            <span>{vehicle.name}</span>
+                                                        ))}
+                                                    </p>
+                                                </VerticalTimelineElement>
+                                            ))}
+                                        </VerticalTimeline>
+                                    ) : (
+                                        <h2 className="text-center font-mono text-2xl font-semibold text-zinc-950">
+                                            Chưa có lịch trình
+                                        </h2>
+                                    )}
                                 </div>
                             </div>
                         </div>

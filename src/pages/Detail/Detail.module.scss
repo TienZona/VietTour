@@ -8,9 +8,23 @@
         box-shadow: 0 0 4px 4px rgba($color: #000000, $alpha: 0.1);
     }
 
+    .line-1 {
+        width: 80%;
+        height: 2px;
+        background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    }
+
+    .timeline {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        border-radius: 3px;
+        background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    }
+
     .img {
         width: 100%;
-        height: 500px;
+        height: auto;
         object-fit: cover;
     }
 
